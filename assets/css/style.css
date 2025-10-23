@@ -1,0 +1,384 @@
+/* Custom CSS for Nail Studio Andreea */
+
+:root {
+    --primary-color: #e91e63;
+    --secondary-color: #f8bbd9;
+    --accent-color: #ad1457;
+    --dark-color: #2c2c2c;
+    --light-color: #f8f9fa;
+    --text-color: #333;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    min-height: 500px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Service Cards */
+.service-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.service-card:hover::before {
+    left: 100%;
+}
+
+/* Gallery */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-item img {
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+}
+
+.btn-lg {
+    padding: 1rem 2.5rem;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color) !important;
+}
+
+footer a:hover {
+    color: var(--secondary-color) !important;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Icons */
+.fa-star {
+    color: #ffc107;
+}
+
+/* Loading animations */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--primary-color);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 0;
+        text-align: center;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        margin-right: 0;
+        text-align: center;
+    }
+}
+
+/* Contact page specific */
+.contact-icon {
+    flex-shrink: 0;
+}
+
+.contact-item {
+    padding: 1rem 0;
+}
+
+.contact-item:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+/* Admin styles */
+.admin-header {
+    background: linear-gradient(135deg, var(--dark-color) 0%, #444 100%);
+    color: white;
+}
+
+.admin-sidebar {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 76px);
+}
+
+.admin-nav .nav-link {
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.admin-nav .nav-link:hover,
+.admin-nav .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Status badges */
+.badge-pending {
+    background-color: #ffc107;
+}
+
+.badge-confirmed {
+    background-color: #28a745;
+}
+
+.badge-completed {
+    background-color: #17a2b8;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+}
+
+/* Data tables */
+.table th {
+    border-top: none;
+    background-color: var(--light-color);
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(233, 30, 99, 0.05);
+}
+
+/* Modal enhancements */
+.modal-header {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+/* Utility classes */
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.box-shadow {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Prevent flickering and layout shifts */
+.modal {
+    visibility: hidden;
+}
+
+.modal.show {
+    visibility: visible;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Reduce animation duration for smoother experience */
+.modal.fade .modal-dialog {
+    transition: transform 0.2s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal.fade .modal-dialog {
+        transition: none;
+    }
+    
+    .btn {
+        transition: none;
+    }
+}
+
+/* Gallery stability fixes */
+.gallery-stable-img {
+    backface-visibility: hidden;
+    transform: translateZ(0); /* trigger GPU for smoother rendering */
+    image-rendering: auto;
+    will-change: auto;
+    transition: opacity .15s ease-in;
+}
+.gallery-stable-img[src=''] { opacity:0; }
+.gallery-stable-img:not([src='']) { opacity:1; }
+
+/* Prevent layout shift while image loads */
+.card-img-top { aspect-ratio: 4 / 2; }
