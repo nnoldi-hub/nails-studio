@@ -1,0 +1,20 @@
+---
+# cPanel deployment configuration for Nail Studio Andreea
+# Documentation: https://docs.cpanel.net/knowledge-base/web-services/how-to-publish-a-website-from-git-version-control/
+
+deployment:
+  tasks:
+    - export: all
+    - public_html: public_html/
+      source: /
+      target: public_html/
+      include:
+        - '**/*'
+      exclude:
+        - .git/
+        - .github/
+        - .cpanel.yml
+        - sql/
+        - README.md
+        - admin/includes/
+        - includes/config.php # (edit if you want to keep config private)
