@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/badges.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -34,6 +35,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo SITE_URL; ?>/gallery_simple.php">Galerie</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>/articles.php">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>/ghid_pachete.php">Ghid de alegere</a>
+                    </li>
+                    <?php if (function_exists('get_shop_enabled') && get_shop_enabled()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo SITE_URL; ?>/products.php">Magazin</a>
+                    </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo SITE_URL; ?>/coaching.php">Cursuri</a>
                     </li>

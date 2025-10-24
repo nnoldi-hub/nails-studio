@@ -1,4 +1,5 @@
 <?php
+require_once '../includes/functions.php';
 if (!is_admin_logged_in()) {
     header('Location: login.php');
     exit();
@@ -40,8 +41,15 @@ if (!is_admin_logged_in()) {
                 <i class="fas fa-user-shield me-2"></i>
                 Admin Panel - <?php echo SITE_NAME; ?>
             </a>
-            
-            <div class="navbar-nav ms-auto">
+            <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link position-relative" href="appointments.php">
+                    <i class="fas fa-calendar-alt me-1"></i>Programări
+                    <span id="notif_appointments" class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="display:none;">0</span>
+                </a>
+                <a class="nav-link position-relative" href="messages.php">
+                    <i class="fas fa-envelope me-1"></i>Mesaje
+                    <span id="notif_messages" class="badge bg-warning position-absolute top-0 start-100 translate-middle" style="display:none;">0</span>
+                </a>
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                         <i class="fas fa-user-circle me-1"></i>
@@ -60,3 +68,27 @@ if (!is_admin_logged_in()) {
             </div>
         </div>
     </nav>
+    <script>
+    function updateAdminBadges() {
+        fetch('ajax_admin_notifications.php')
+            .then(r => r.json())
+            .then(data => {
+                let appBadge = document.getElementById('notif_appointments');
+                let msgBadge = document.getElementById('notif_messages');
+                if (data.appointments > 0) {
+                    appBadge.textContent = data.appointments;
+                    appBadge.style.display = 'inline-block';
+                } else {
+                    appBadge.style.display = 'none';
+                }
+                if (data.messages > 0) {
+                    msgBadge.textContent = data.messages;
+                    msgBadge.style.display = 'inline-block';
+                } else {
+                    msgBadge.style.display = 'none';
+                }
+            });
+    }
+    setInterval(updateAdminBadges, 30000);
+    document.addEventListener('DOMContentLoaded', updateAdminBadges);
+    </script>

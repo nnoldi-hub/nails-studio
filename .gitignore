@@ -1,0 +1,11 @@
+# Ignoră fișiere sensibile și de configurare
+includes/config.php
+includes/config.local.php
+assets/images/gallery/*
+assets/images/services/*
+assets/images/products/*
+assets/data/*.json
+.env
+*.log
+node_modules/
+vendor/

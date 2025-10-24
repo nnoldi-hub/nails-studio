@@ -1,3 +1,60 @@
+-- Table for shop orders
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_name VARCHAR(100) NOT NULL,
+    client_email VARCHAR(100) NOT NULL,
+    client_phone VARCHAR(20) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    status ENUM('nou','confirmat','finalizat','anulat') DEFAULT 'nou',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table for ordered products
+CREATE TABLE IF NOT EXISTS order_products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    product_name VARCHAR(200) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+-- Table for site settings (module activation)
+CREATE TABLE IF NOT EXISTS settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    value VARCHAR(100) NOT NULL
+);
+
+-- Insert default shop_enabled setting
+INSERT INTO settings (name, value) VALUES ('shop_enabled', '1')
+    ON DUPLICATE KEY UPDATE value = '1';
+-- Table for shop products
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    slug VARCHAR(100) UNIQUE NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    content_list TEXT,
+    meta_title VARCHAR(200),
+    meta_description VARCHAR(255),
+    meta_keywords VARCHAR(255),
+    image VARCHAR(255),
+    category VARCHAR(50),
+    level ENUM('începător','avansat','profesional') DEFAULT 'începător',
+    brand VARCHAR(100),
+    accent_color VARCHAR(20),
+    badge_recommended BOOLEAN DEFAULT FALSE,
+    tutorial_link VARCHAR(255),
+    price DECIMAL(10,2) NOT NULL,
+    status ENUM('draft','publicat') DEFAULT 'draft',
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 -- Database schema for Nail Studio Andreea
 -- Create database
 CREATE DATABASE IF NOT EXISTS nail_studio_andreea CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -96,27 +153,42 @@ CREATE TABLE admin_users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Table for editable public pages
+CREATE TABLE pages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    slug VARCHAR(100) UNIQUE NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    content TEXT,
+    image VARCHAR(255),
+    color VARCHAR(20),
+    meta_title VARCHAR(200),
+    meta_description VARCHAR(255),
+    meta_keywords VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: articles
+CREATE TABLE IF NOT EXISTS articles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    slug VARCHAR(100) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image VARCHAR(255),
+    meta_title VARCHAR(255),
+    meta_description VARCHAR(255),
+    meta_keywords VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    status ENUM('draft','published') DEFAULT 'draft'
+);
+
 -- Insert default admin user (password: admin123)
 INSERT INTO admin_users (username, email, password, full_name) VALUES 
 ('admin', 'admin@nailstudio.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator');
 
 -- Insert sample services
 INSERT INTO services (name, description, price, duration, image) VALUES 
-('Manichiura Clasica', 'Manichiura clasica cu lac normal', 50.00, 60, 'manicure_classic.jpg'),
-('Manichiura cu Gel', 'Manichiura cu gel rezistent, durabilitate 2-3 saptamani', 80.00, 90, 'manicure_gel.jpg'),
-('Pedichiura', 'Pedichiura completa cu ingrijire si lac', 70.00, 75, 'pedicure.jpg'),
-('Extensii Unghii', 'Extensii cu gel sau acril', 120.00, 120, 'extensions.jpg'),
-('Nail Art', 'Decoratiuni artistice pentru unghii', 100.00, 90, 'nail_art.jpg');
-
--- Insert sample coaching sessions
-INSERT INTO coaching_sessions (session_name, description, price, duration, max_participants) VALUES 
-('Curs Initiere Manichiura', 'Curs de baza pentru incepatori', 300.00, 6, 5),
-('Curs Avansат Nail Art', 'Tehnici avansate de decorare unghii', 500.00, 8, 3),
-('Workshop Extensii Gel', 'Invatarea tehnicilor de extensii cu gel', 400.00, 4, 4);
-
--- Insert sample gallery items
-INSERT INTO gallery (title, description, image, is_featured) VALUES 
-('Nail Art Floral', 'Design floral delicat', 'gallery_1.jpg', TRUE),
-('Manichiura Eleganta', 'Stil elegant pentru evenimente', 'gallery_2.jpg', TRUE),
-('Extensii Naturale', 'Look natural cu extensii', 'gallery_3.jpg', FALSE),
-('Pedichiura Vara', 'Culori vii pentru vara', 'gallery_4.jpg', FALSE);
+('Manichiura Clasica', 'Manichiura eleganta si rafinata', 100.00, 60, 'gallery_1.jpg'),
+('Extensii Naturale', 'Look natural cu extensii', 150.00, 90, 'gallery_3.jpg'),
+('Pedichiura Vara', 'Culori vii pentru vara', 120.00, 75, 'gallery_4.jpg');

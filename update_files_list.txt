@@ -1,0 +1,21 @@
+# Fișiere de inclus în update_files.zip
+# (exclude config.php, imagini, date locale)
+
+admin/
+assets/css/
+assets/js/
+assets/data/
+includes/
+products.php
+ghid_pachete.php
+cart.php
+services.php
+coaching.php
+contact.php
+appointment.php
+articles.php
+gallery.php
+gallery_simple.php
+README.md
+README_UPDATE.md
+update_db.sql

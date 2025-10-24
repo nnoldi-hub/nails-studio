@@ -1,6 +1,19 @@
 <?php
 require_once 'config.php';
 
+// Function to check if shop module is enabled
+function get_shop_enabled() {
+    global $conn;
+    // Try to get from settings table if exists, else default true
+    if ($conn->query("SHOW TABLES LIKE 'settings'")->num_rows) {
+        $result = $conn->query("SELECT value FROM settings WHERE name = 'shop_enabled' LIMIT 1");
+        if ($row = $result->fetch_assoc()) {
+            return $row['value'] == '1';
+        }
+    }
+    return true; // default enabled
+}
+
 // Function to sanitize input
 function sanitize_input($data) {
     $data = trim($data);

@@ -11,6 +11,8 @@ $total_appointments = count(get_all_appointments());
 $pending_appointments = count(get_all_appointments('pending'));
 $services_count = count(get_all_services(false));
 $gallery_count = count(get_gallery_items());
+$total_coaching_bookings = isset($conn) ? $conn->query('SELECT COUNT(*) FROM coaching_bookings')->fetch_row()[0] : 0;
+$total_coaching_sessions = isset($conn) ? $conn->query('SELECT COUNT(*) FROM coaching_sessions')->fetch_row()[0] : 0;
 
 include 'includes/admin_header.php';
 ?>
@@ -36,14 +38,12 @@ include 'includes/admin_header.php';
 
             <!-- Statistics Cards -->
             <div class="row mb-4">
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-4 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Total Programări
-                                    </div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Programări</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_appointments; ?></div>
                                 </div>
                                 <div class="col-auto">
@@ -53,15 +53,12 @@ include 'includes/admin_header.php';
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-4 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Programări în Așteptare
-                                    </div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Programări în Așteptare</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $pending_appointments; ?></div>
                                 </div>
                                 <div class="col-auto">
@@ -71,15 +68,12 @@ include 'includes/admin_header.php';
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-4 mb-4">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Servicii Active
-                                    </div>
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Servicii Active</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $services_count; ?></div>
                                 </div>
                                 <div class="col-auto">
@@ -89,19 +83,46 @@ include 'includes/admin_header.php';
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-2 col-md-4 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Imagini Galerie
-                                    </div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Imagini Galerie</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $gallery_count; ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-images fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 mb-4">
+                    <div class="card border-left-secondary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Rezervări Cursuri</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_coaching_bookings; ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 mb-4">
+                    <div class="card border-left-dark shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Cursuri</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_coaching_sessions; ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -179,28 +200,40 @@ include 'includes/admin_header.php';
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-3">
                                     <a href="appointments.php" class="btn btn-outline-primary btn-block">
                                         <i class="fas fa-calendar-plus fa-2x mb-2"></i><br>
                                         Gestionează Programări
                                     </a>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-3">
                                     <a href="services.php" class="btn btn-outline-success btn-block">
                                         <i class="fas fa-plus-circle fa-2x mb-2"></i><br>
                                         Adaugă Serviciu
                                     </a>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-3">
                                     <a href="gallery.php" class="btn btn-outline-info btn-block">
                                         <i class="fas fa-image fa-2x mb-2"></i><br>
                                         Gestionează Galeria
                                     </a>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-3">
                                     <a href="messages.php" class="btn btn-outline-warning btn-block">
                                         <i class="fas fa-envelope fa-2x mb-2"></i><br>
                                         Mesaje Contact
+                                    </a>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <a href="coaching.php" class="btn btn-outline-secondary btn-block">
+                                        <i class="fas fa-chalkboard-teacher fa-2x mb-2"></i><br>
+                                        Gestionează Cursuri
+                                    </a>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <a href="coaching.php?tab=bookings" class="btn btn-outline-dark btn-block">
+                                        <i class="fas fa-user-graduate fa-2x mb-2"></i><br>
+                                        Rezervări Cursuri
                                     </a>
                                 </div>
                             </div>
